@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Software Reviewer</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Software Reviewer</h1>
+    <form action="/review" method="post">
+        <label for="problem">Enter the problem:</label><br>
+        <textarea id="problem" name="problem" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

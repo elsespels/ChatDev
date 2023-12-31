@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Evernote Project Controller</title>
+</head>
+<body>
+    <h1>Evernote Project Controller</h1>
+    <h2>Create Project</h2>
+    <form action="/create_project" method="post">
+        <label for="project_name">Project Name:</label>
+        <input type="text" id="project_name" name="project_name" required><br><br>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea><br><br>
+        <input type="submit" value="Create">
+    </form>
+    <h2>Projects</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Members</th>
+            <th>Actions</th>
+        </tr>
+        {% for project in projects %}
+        <tr>
+            <td>{{ project.id }}</td>
+            <td>{{ project.name }}</td>
+            <td>{{ project.description }}</td>
+            <td>{{ project.status }}</td>
+            <td>{{ project.members }}</td>
+            <td>
+                <form action="/update_project" method="post">
+                    <input type="hidden" name="project_id" value="{{ project.id }}">
+                    <input type="text" name="project_name" value="{{ project.name }}" required>
+                    <textarea name="description" required>{{ project.description }}</textarea>
+                    <input type="submit" value="Update">
+                </form>
+                <form action="/assign_member" method="post">
+                    <input type="hidden" name="project_id" value="{{ project.id }}">
+                    <input type="text" name="member_name" placeholder="Member Name" required>
+                    <input type="submit" value="Assign Member">
+                </form>
+                <form action="/change_status" method="post">
+                    <input type="hidden" name="project_id" value="{{ project.id }}">
+                    <select name="status" required>
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                    <input type="submit" value="Change Status">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
